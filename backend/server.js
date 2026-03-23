@@ -3,14 +3,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import session from "express-session";
-import userRoute from "./routes/user.route.js";
 import itemRoute from "./routes/items.route.js";
 import categoryRoute from "./routes/category.route.js";
 import supplierRoute from "./routes/suppplier.route.js";
 import stockInRoute from "./routes/stock_in.route.js";
 import stockOutRoute from "./routes/stock_out.route.js";
 import departmentRoute from "./routes/department.route.js";
-
+import authRoutes from "./routes/auth.route.js";
 dotenv.config();
 
 const app = express();
@@ -36,7 +35,7 @@ app.use(
 );
 
 // Routes
-app.use("/user", userRoute);
+app.use("/auth", authRoutes);
 app.use("/items", itemRoute);
 app.use("/category", categoryRoute);
 app.use("/supplier", supplierRoute);
