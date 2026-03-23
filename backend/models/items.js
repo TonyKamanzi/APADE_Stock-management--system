@@ -6,10 +6,6 @@ const itemSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    quantity: {
-      type: Number,
-      required: true,
-    },
     unit: {
       type: String,
       required: true,
@@ -29,6 +25,6 @@ const itemSchema = new mongoose.Schema(
   },
 );
 
-const Item = mongoose.Model("Itme", itemSchema)
+const Item = mongoose.model("Item", itemSchema)
 
 export default Item
