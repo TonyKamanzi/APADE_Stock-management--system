@@ -5,6 +5,7 @@ import About from "./pages/Home/About";
 import Contact from "./pages/Home/Contact";
 import Navbar from "./components/home/Navbar";
 import Login from "./pages/auth/Login";
+import Dashboard from "./pages/admin/Dashboard";
 
 export default function App() {
   return (
@@ -13,7 +14,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={ <Login/>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
