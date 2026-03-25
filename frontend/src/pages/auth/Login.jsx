@@ -14,11 +14,11 @@ export default function Login() {
     setError("");
     setLoading(true);
     try {
-      await axios.post("http://localhost:5000/auth/login", {
+      const res = await axios.post("http://localhost:5000/auth/login", {
         email,
         password,
       });
-
+      console.log(res.data.message);
       navigate("/dashboard");
     } catch (error) {
       setError(error.response?.data?.message || "Login failed");
@@ -50,6 +50,7 @@ export default function Login() {
               type="email"
               name="email"
               id="email"
+              placeholder="Enter your Email"
             />
           </div>
           <div>
@@ -63,6 +64,7 @@ export default function Login() {
               type="password"
               name="password"
               id="password"
+              placeholder="Enter Password"
             />
           </div>
           {error && (
@@ -71,11 +73,7 @@ export default function Login() {
             </p>
           )}
           <div>
-            <button
-              type="submit"
-              className="w-full text-white bg-blue-500 my-3 py-2 px-4 rounded-md hover:bg-blue-600 hover:opacity-90 transition cursor-pointer"
-              disabled={loading}
-            >
+            <button type="submit" className="w-full text-white bg-blue-500 my-3 py-2 px-4 rounded-md hover:bg-blue-600 hover:opacity-90 transition cursor-pointer" disabled={loading}>
               {loading ? "Logging in..." : "Login"}
             </button>
           </div>
