@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -61,15 +62,17 @@ export default function Sidebar() {
       });
       if (res.data.message) {
         navigate("/login");
+        toast.success("Logged out successfully")
       }
     } catch (error) {
       console.error("Logout failed:", error);
+      toast.error("Failed to logout")
     }
   };
 
   return (
     <div
-      className={`${isOpen ? "w-64" : "w-20"} bg-linear-to-b from-blue-600 to-blue-800 text-white transition-all duration-300 shrink-0 h-screen shadow-lg overflow-y-auto flex flex-col`}
+      className={`${isOpen ? "w-64" : "w-20"} bg-linear-to-b from-blue-600 to-blue-800 text-white transition-all duration-300 shrink-0 min-h-screen shadow-lg overflow-y-auto flex flex-col`}
     >
       {/* Toggle Button */}
       <div className="flex justify-between items-center p-4">

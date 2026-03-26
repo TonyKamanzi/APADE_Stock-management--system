@@ -1,4 +1,4 @@
-import React from "react";
+import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import About from "./pages/Home/About";
@@ -12,25 +12,32 @@ import Items from "./pages/dashboard/Items";
 import StockIn from "./pages/dashboard/StockIn";
 import StockOut from "./pages/dashboard/StockOut";
 import Suppliers from "./pages/dashboard/Suppliers";
+import NotFound from "./pages/NotFound";
+import EditCategory from "./pages/dashboard/EditCategory";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={<DashboardHome />} />
-          <Route path="categories" element={<Categories />} />
-          <Route path="departments" element={<Departments />} />
-          <Route path="items" element={<Items />} />
-          <Route path="stock-in" element={<StockIn />} />
-          <Route path="stock-out" element={<StockOut />} />
-          <Route path="suppliers" element={<Suppliers />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<DashboardHome />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="departments" element={<Departments />} />
+            <Route path="items" element={<Items />} />
+            <Route path="stock-in" element={<StockIn />} />
+            <Route path="stock-out" element={<StockOut />} />
+            <Route path="suppliers" element={<Suppliers />} />
+          <Route path="edit-category/:id" element={<EditCategory />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+      <ToastContainer />
+    </>
   );
 }

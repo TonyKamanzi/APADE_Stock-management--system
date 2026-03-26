@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -20,8 +21,10 @@ export default function Login() {
       });
       console.log(res.data.message);
       navigate("/dashboard");
+      toast.success("Welcome back")
     } catch (error) {
       setError(error.response?.data?.message || "Login failed");
+      toast.error("Problem whiling logining in")
     } finally {
       setLoading(false);
     }

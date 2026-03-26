@@ -7,7 +7,7 @@ export default function Topbar() {
         <div className="flex items-center">
           <img src="/apade.png" alt="apade logo" className="w-20 h-20" />
         </div>
-        <div flex className="flex items-center ">
+        <div  className="flex items-center ">
           <div className="bg-blue-600 p-3 mr-4 rounded-full"> 
             <User className="text-white " />
           </div>

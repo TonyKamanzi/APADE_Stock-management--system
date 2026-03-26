@@ -2,11 +2,12 @@ import Category from "../models/category.js";
 
 export const createCategory = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, description } = req.body;
     const category = await Category.create({
       name,
+      description,
     });
-  res.status(200).json(category)
+    res.status(200).json(category);
   } catch (error) {
     res
       .status(500)

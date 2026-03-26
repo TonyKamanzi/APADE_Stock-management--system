@@ -9,7 +9,7 @@ export default function DashboardLayout() {
       <Sidebar />
       <div className="flex-1">
         <Topbar />
-        <div className="p-8 bg-gray-50 min-h-screen">
+        <div className="p-8 bg-gray-100 min-h-screen">
           <Outlet />
         </div>
       </div>
