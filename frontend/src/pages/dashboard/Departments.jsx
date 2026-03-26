@@ -1,7 +1,10 @@
 import React from 'react'
+import AddDapartment from '../../components/AddDapartment'
 
 export default function Departments() {
   return (
-    <div>Departments</div>
+    <div>
+      <AddDapartment/>
+    </div>
   )
 }

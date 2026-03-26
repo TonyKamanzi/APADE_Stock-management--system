@@ -6,6 +6,9 @@ const departmentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+    },
   },
   {
     timestamps: true,

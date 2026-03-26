@@ -57,7 +57,7 @@ export default function Categories() {
           </div>
           {!loading && (
             <span className="bg-stone-900 text-stone-100 text-xs font-bold px-4 py-2 rounded-full tracking-wide">
-              {categories.length}{" "}
+              {categories.length}
               {categories.length === 1 ? "category" : "categories"}
             </span>
           )}
