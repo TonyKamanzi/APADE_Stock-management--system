@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export default function AddDapartment() {
+export default function AddDapartment({ onDepartmentAdded }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const handelSubmit = async (e) => {
@@ -12,16 +12,17 @@ export default function AddDapartment() {
       return;
     }
     try {
-      await axios.post("http://localhost:5000/category/add-category", {
+      await axios.post("http://localhost:5000/department/add-department", {
         name,
         description,
       });
       toast.success("Department added succefully");
       setName("");
       setDescription("");
+      if (onDepartmentAdded) onDepartmentAdded();
     } catch (error) {
-      console.error(error);
       toast.error("Failed to add the department");
+      console.error(error);
     }
   };
   return (
@@ -31,7 +32,7 @@ export default function AddDapartment() {
         className="md:flex gap-4 items-center md:flex-row"
       >
         <input
-          className="border border-gray-300 focus:ring-2 focus:outline-none focus:border-blue-600 rounded-md w-full px-4 py-2 my-2"
+          className="border border-gray-300 focus:ring-2 focus:outline-none focus:ring-blue-600 rounded-md w-full px-4 py-2 my-2"
           type="text"
           name="department"
           id="department"
