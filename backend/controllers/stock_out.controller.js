@@ -26,10 +26,11 @@ export const createStockOut = async (req, res) => {
   }
 };
 
-
 export const getStockouts = async (req, res) => {
   try {
-    const stockouts = await StockOut.find();
+    const stockouts = await StockOut.find()
+      .populate("item", "name unit")
+      .populate("department", "name");
     res.status(200).json(stockouts);
   } catch (error) {
     res
@@ -75,7 +76,7 @@ export const deleteStockout = async (req, res) => {
     if (!stockout) {
       return res.status(404).json({ message: "Stockout not found" });
     }
-    res.status(200).json({message:"Stockout deleted"});
+    res.status(200).json({ message: "Stockout deleted" });
   } catch (error) {
     res
       .status(500)

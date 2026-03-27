@@ -6,6 +6,9 @@ import {
   Truck,
   AlertTriangle,
   TrendingUp,
+  ArrowUp,
+  ArrowDown,
+  BarChart,
 } from "lucide-react";
 
 export default function DashboardHome() {
@@ -15,6 +18,12 @@ export default function DashboardHome() {
     totalSuppliers: 0,
     lowStockItems: 0,
     recentItems: [],
+    totalInventoryQuantity: 0,
+    totalStockInRecords: 0,
+    totalStockOutRecords: 0,
+    totalStockInQuantity: 0,
+    totalStockOutQuantity: 0,
+    netStockMovement: 0,
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -25,15 +34,20 @@ export default function DashboardHome() {
         setLoading(true);
 
         // Fetch all data in parallel
-        const [itemsRes, categoriesRes, suppliersRes] = await Promise.all([
-          axios.get("http://localhost:5000/items/all-items"),
-          axios.get("http://localhost:5000/category/get-all-categories"),
-          axios.get("http://localhost:5000/supplier/all-suppliers"),
-        ]);
+        const [itemsRes, categoriesRes, suppliersRes, stockInRes, stockOutRes] =
+          await Promise.all([
+            axios.get("http://localhost:5000/items/all-items"),
+            axios.get("http://localhost:5000/category/get-all-categories"),
+            axios.get("http://localhost:5000/supplier/all-suppliers"),
+            axios.get("http://localhost:5000/stockin/all-stockins"),
+            axios.get("http://localhost:5000/stockout/all-stock-outs"),
+          ]);
 
         const items = itemsRes.data;
         const categories = categoriesRes.data;
         const suppliers = suppliersRes.data;
+        const stockIns = stockInRes.data;
+        const stockOuts = stockOutRes.data;
 
         // Calculate statistics
         const totalItems = items.length;
@@ -42,12 +56,38 @@ export default function DashboardHome() {
         const lowStockItems = items.filter((item) => item.quantity < 10).length;
         const recentItems = items.slice(0, 5); // Get 5 most recent items
 
+        const totalInventoryQuantity = items.reduce(
+          (sum, item) => sum + (Number(item.quantity) || 0),
+          0,
+        );
+
+        const totalStockInRecords = stockIns.length;
+        const totalStockOutRecords = stockOuts.length;
+
+        const totalStockInQuantity = stockIns.reduce(
+          (sum, record) => sum + (Number(record.quantity) || 0),
+          0,
+        );
+
+        const totalStockOutQuantity = stockOuts.reduce(
+          (sum, record) => sum + (Number(record.quantity) || 0),
+          0,
+        );
+
+        const netStockMovement = totalStockInQuantity - totalStockOutQuantity;
+
         setStats({
           totalItems,
           totalCategories,
           totalSuppliers,
           lowStockItems,
           recentItems,
+          totalInventoryQuantity,
+          totalStockInRecords,
+          totalStockOutRecords,
+          totalStockInQuantity,
+          totalStockOutQuantity,
+          netStockMovement,
         });
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
@@ -173,6 +213,54 @@ export default function DashboardHome() {
                 {stats.lowStockItems}
               </p>
               <p className="text-sm text-stone-500">Low Stock Items</p>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Stock Movement Summary ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                <ArrowUp className="w-6 h-6 text-blue-600" />
+              </div>
+              <BarChart className="w-5 h-5 text-stone-400" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-stone-900">
+                {stats.totalStockInQuantity}
+              </p>
+              <p className="text-sm text-stone-500">Total Stock In Quantity</p>
+            </div>
+          </div>
+
+          <div className="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                <ArrowDown className="w-6 h-6 text-red-600" />
+              </div>
+              <BarChart className="w-5 h-5 text-stone-400" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-stone-900">
+                {stats.totalStockOutQuantity}
+              </p>
+              <p className="text-sm text-stone-500">Total Stock Out Quantity</p>
+            </div>
+          </div>
+
+          <div className="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-amber-600" />
+              </div>
+              <BarChart className="w-5 h-5 text-stone-400" />
+            </div>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-stone-900">
+                {stats.netStockMovement}
+              </p>
+              <p className="text-sm text-stone-500">Net Stock Movement</p>
             </div>
           </div>
         </div>
