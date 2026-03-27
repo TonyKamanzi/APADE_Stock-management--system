@@ -373,13 +373,13 @@ export default function StockIn() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-stone-900">
                         <div className="flex items-center">
-                          <DollarSign className="w-4 h-4 text-stone-400 mr-1" />
+                          <span className="text-green-500 mr-1">Rwf</span>
                           {stock.unitPrice?.toFixed(2)}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-stone-900">
                         <div className="flex items-center">
-                          <DollarSign className="w-4 h-4 text-stone-400 mr-1" />
+                        <span className="text-green-500 mr-1">Rwf</span>
                           {stock.totalPrice?.toFixed(2)}
                         </div>
                       </td>

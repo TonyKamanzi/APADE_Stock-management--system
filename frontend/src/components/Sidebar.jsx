@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Menu,
   X,
@@ -14,7 +14,6 @@ import {
   Settings,
 } from "lucide-react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function Sidebar() {
@@ -27,32 +26,13 @@ export default function Sidebar() {
 
   const menuItems = [
     { icon: <BarChart3 size={20} />, label: "Dashboard", path: "/dashboard" },
-    {
-      icon: <Grid size={20} />,
-      label: "Categories",
-      path: "/dashboard/categories",
-    },
-    {
-      icon: <Truck size={20} />,
-      label: "Suppliers",
-      path: "/dashboard/suppliers",
-    },
-    {
-      icon: <Warehouse size={20} />,
-      label: "Departments",
-      path: "/dashboard/departments",
-    },
+    { icon: <Grid size={20} />, label: "Categories", path: "/dashboard/categories" },
+    { icon: <Truck size={20} />, label: "Suppliers", path: "/dashboard/suppliers" },
+    { icon: <Warehouse size={20} />, label: "Departments", path: "/dashboard/departments" },
     { icon: <Package size={20} />, label: "Items", path: "/dashboard/items" },
-    {
-      icon: <SendHorizonal size={20} />,
-      label: "Stock In",
-      path: "/dashboard/stock-in",
-    },
-    {
-      icon: <SendIcon size={20} />,
-      label: "Stock Out",
-      path: "/dashboard/stock-out",
-    },
+    { icon: <SendHorizonal size={20} />, label: "Stock In", path: "/dashboard/stock-in" },
+    { icon: <SendIcon size={20} />, label: "Stock Out", path: "/dashboard/stock-out" },
+    { icon: <BarChart3 size={20} />, label: "Reports", path: "/dashboard/reports" },
   ];
 
   const handleLogout = async () => {
@@ -62,11 +42,11 @@ export default function Sidebar() {
       });
       if (res.data.message) {
         navigate("/login");
-        toast.success("Logged out successfully")
+        toast.success("Logged out successfully");
       }
     } catch (error) {
       console.error("Logout failed:", error);
-      toast.error("Failed to logout")
+      toast.error("Failed to logout");
     }
   };
 
@@ -77,10 +57,7 @@ export default function Sidebar() {
       {/* Toggle Button */}
       <div className="flex justify-between items-center p-4">
         {isOpen && <h1 className="text-2xl font-bold">APADE</h1>}
-        <button
-          onClick={toggleSidebar}
-          className="p-2 hover:bg-blue-700 rounded-lg"
-        >
+        <button onClick={toggleSidebar} className="p-2 hover:bg-blue-700 rounded-lg">
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -94,12 +71,11 @@ export default function Sidebar() {
             className="flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200"
           >
             {item.icon}
-            {isOpen && (
-              <span className="text-sm font-medium">{item.label}</span>
-            )}
+            {isOpen && <span className="text-sm font-medium">{item.label}</span>}
           </Link>
         ))}
       </nav>
+
       <div className="p-4 border-t border-blue-700 flex items-center">
         <Settings size={20} className="mx-3" />
         {isOpen && <span className="text-sm font-medium">Settings</span>}
@@ -109,7 +85,7 @@ export default function Sidebar() {
       <div className="p-4 border-t border-blue-700">
         <button
           onClick={handleLogout}
-          className={`flex items-center gap-4 w-full px-4 py-3 rounded-lg hover:bg-red-600 transition-colors duration-200 ${!isOpen && "justify-center"}`}
+          className={`flex items-center gap-4 w-full px-4 py-3 rounded-lg hover:bg-red-600 transition-colors duration-200 ${!isOpen ? "justify-center" : ""}`}
         >
           <LogOut size={20} />
           {isOpen && <span className="text-sm font-medium">Logout</span>}

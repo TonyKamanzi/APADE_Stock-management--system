@@ -9,7 +9,9 @@ import {
   ArrowUp,
   ArrowDown,
   BarChart,
+  
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function DashboardHome() {
   const [stats, setStats] = useState({
@@ -340,10 +342,10 @@ export default function DashboardHome() {
                   Add Supplier
                 </p>
               </a>
-              <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 text-center opacity-60 cursor-not-allowed">
+              <Link to={"/dashboard/reports"} className="bg-stone-50 border border-stone-200 rounded-xl p-4 text-center opacity-60 cursor-pointer ">
                 <AlertTriangle className="w-6 h-6 text-stone-400 mx-auto mb-2" />
                 <p className="text-sm font-medium text-stone-500">Reports</p>
-              </div>
+              </Link>
             </div>
           </div>
         </div>

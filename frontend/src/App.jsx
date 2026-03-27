@@ -12,6 +12,7 @@ import Items from "./pages/dashboard/Items";
 import StockIn from "./pages/dashboard/StockIn";
 import StockOut from "./pages/dashboard/StockOut";
 import Suppliers from "./pages/dashboard/Suppliers";
+import Reports from "./pages/dashboard/Reports";
 import NotFound from "./pages/NotFound";
 import EditCategory from "./pages/dashboard/EditCategory";
 import EditDepartment from "./pages/dashboard/EditDepartment";
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="items" element={<Items />} />
             <Route path="stock-in" element={<StockIn />} />
             <Route path="stock-out" element={<StockOut />} />
+            <Route path="reports" element={<Reports />} />
             <Route path="suppliers" element={<Suppliers />} />
             <Route path="edit-category/:id" element={<EditCategory />} />
             <Route path="edit-department/:id" element={<EditDepartment />} />
