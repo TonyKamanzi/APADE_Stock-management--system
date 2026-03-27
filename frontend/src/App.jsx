@@ -15,6 +15,7 @@ import Suppliers from "./pages/dashboard/Suppliers";
 import NotFound from "./pages/NotFound";
 import EditCategory from "./pages/dashboard/EditCategory";
 import EditDepartment from "./pages/dashboard/EditDepartment";
+import EditItem from "./pages/dashboard/EditItem";
 
 export default function App() {
   return (
@@ -34,7 +35,8 @@ export default function App() {
             <Route path="stock-out" element={<StockOut />} />
             <Route path="suppliers" element={<Suppliers />} />
             <Route path="edit-category/:id" element={<EditCategory />} />
-            <Route path="edit-department/:id" element={ <EditDepartment/>} />
+            <Route path="edit-department/:id" element={<EditDepartment />} />
+            <Route path="edit-item/:id" element={<EditItem />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

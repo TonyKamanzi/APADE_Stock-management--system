@@ -3,6 +3,7 @@ import AddCategory from "../../components/AddCategory";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Delete, Edit } from "lucide-react";
 
 export default function Categories() {
   const [error, setError] = useState("");
@@ -58,7 +59,7 @@ export default function Categories() {
           {!loading && (
             <span className="bg-stone-900 text-stone-100 text-xs font-bold px-4 py-2 rounded-full tracking-wide">
               {categories.length}
-              {categories.length === 1 ? "category" : "categories"}
+              {categories.length === 1 ? " Category" : " Categories"}
             </span>
           )}
         </div>
@@ -132,16 +133,18 @@ export default function Categories() {
                 <div className="mt-5 pt-4 border-t border-stone-100 flex items-center gap-3">
                   <Link
                     to={`/dashboard/edit-category/${cat._id}`}
-                    className="text-[12.5px] font-semibold text-blue-500 hover:text-blue-700 transition-colors duration-150"
+                    className="font-semibold text-blue-500 hover:text-blue-700 transition-colors duration-150 flex"
                   >
                     Edit
+                    <Edit/>
                   </Link>
                   <span className="w-1 h-1 rounded-full bg-stone-300" />
                   <button
                     onClick={() => handleDelete(cat._id)}
-                    className="text-[12.5px] font-semibold text-red-400 hover:text-red-600 transition-colors duration-150"
+                    className=" font-semibold text-red-400 hover:text-red-600 transition-colors duration-150 flex"
                   >
                     Delete
+                    <Delete/>
                   </button>
                 </div>
               </div>

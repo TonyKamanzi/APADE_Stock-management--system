@@ -56,7 +56,7 @@ export default function Departments() {
           {!loading && (
             <span className="bg-stone-900 text-stone-100 text-xs font-bold px-4 py-2 rounded-full tracking-wide">
               {departments.length}
-              {departments.length == 1 ? "department" : "departments"}
+              {departments.length == 1 ? " Department" : " Departments"}
             </span>
           )}
         </div>

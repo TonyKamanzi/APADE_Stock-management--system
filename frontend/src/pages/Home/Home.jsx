@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/home/Navbar";
 import { Link } from "react-router-dom";
 import { LogIn } from "lucide-react";
+import Loader from "../../components/Loader";
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate page loading (e.g., fetching data)
+    const timer = setTimeout(() => setLoading(false), 1000); // 1 second delay
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+     <Loader/>
+    );
+  }
+
   return (
     <div>
       <Navbar />
@@ -24,7 +39,7 @@ export default function Home() {
       <div className="flex justify-center">
         <Link
           to={"/login"}
-          className="bg-blue-500 text-center text-white p-2 md:w-sm w-4xl  rounded-lg shadow-md hover:shadow-2xl  flex justify-center hover:bg-blue-600"
+          className="bg-blue-500 text-center text-white p-2 md:w-sm w-4xl rounded-lg shadow-md hover:shadow-2xl flex justify-center hover:bg-blue-600"
         >
           <span>Login</span>
           <LogIn className="ml-4" />

@@ -57,7 +57,7 @@ export default function AddCategory({ onCategoryAdded }) {
           type="submit"
           className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md w-full md:w-auto"
         >
-          Add
+         + Add
         </button>
       </form>
     </div>

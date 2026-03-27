@@ -24,14 +24,14 @@ export default function Login() {
       toast.success("Welcome back")
     } catch (error) {
       setError(error.response?.data?.message || "Login failed");
-      toast.error("Problem whiling logining in")
+      toast.error("Problem while logining in")
     } finally {
       setLoading(false);
     }
   };
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      <div className="bg-white w-full max-w-md p-8 shadow-md rounded-lg">
+    <div className="min-h-screen flex justify-center items-center bg-linear-to-br bg-blue-100 via-blue-50 to-transparent">
+      <div className="bg-white w-full max-w-md p-8 shadow-md rounded-lg border border-stone-200">
         <img
           src="/apade.png"
           alt="apade logo"

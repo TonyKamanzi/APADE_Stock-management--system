@@ -12,11 +12,14 @@ const itemSchema = new mongoose.Schema(
     },
     description: {
       type: String,
+    },
+    quantity: {
+      type: Number, // ✅ fixed
       required: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "category",
+      ref: "Category", // ✅ fixed
       required: true,
     },
   },
@@ -25,6 +28,5 @@ const itemSchema = new mongoose.Schema(
   },
 );
 
-const Item = mongoose.model("Item", itemSchema)
-
-export default Item
+const Item = mongoose.model("Item", itemSchema);
+export default Item;

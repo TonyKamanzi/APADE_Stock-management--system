@@ -72,7 +72,7 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`${isOpen ? "w-64" : "w-20"} bg-linear-to-b from-blue-600 to-blue-800 text-white transition-all duration-300 shrink-0 min-h-screen shadow-lg overflow-y-auto flex flex-col`}
+      className={`${isOpen ? "w-64" : "w-20"} bg-linear-to-b from-blue-600 to-blue-800 text-white transition-all duration-300 shrink-0 h-screen shadow-lg overflow-y-auto flex flex-col`}
     >
       {/* Toggle Button */}
       <div className="flex justify-between items-center p-4">
