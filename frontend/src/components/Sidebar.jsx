@@ -33,6 +33,11 @@ export default function Sidebar() {
       path: "/dashboard/categories",
     },
     {
+      icon: <Truck size={20} />,
+      label: "Suppliers",
+      path: "/dashboard/suppliers",
+    },
+    {
       icon: <Warehouse size={20} />,
       label: "Departments",
       path: "/dashboard/departments",
@@ -47,11 +52,6 @@ export default function Sidebar() {
       icon: <SendIcon size={20} />,
       label: "Stock Out",
       path: "/dashboard/stock-out",
-    },
-    {
-      icon: <Truck size={20} />,
-      label: "Suppliers",
-      path: "/dashboard/suppliers",
     },
   ];
 

@@ -1,16 +1,18 @@
-import axios from "axios";
+import React from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const inp =
   "w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-2.5 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition duration-200";
 const lbl =
   "block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1.5";
 
-export default function AddCategory({ onCategoryAdded }) {
+export default function AddSuplier({ onSuccess }) {
   const [form, setForm] = useState({
     name: "",
-    description: "",
+    contact: "",
+    address: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -18,27 +20,19 @@ export default function AddCategory({ onCategoryAdded }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!form.name) {
-      toast.error("Category name is required");
-      return;
-    }
-
     setLoading(true);
     try {
-      await axios.post("http://localhost:5000/category/add-category", form);
-      toast.success("Category added successfully");
-
-      // 🔹 Reset form
+      await axios.post("http://localhost:5000/supplier/add-supplier", form);
+      toast.success("Supplier added successfully");
       setForm({
         name: "",
-        description: "",
+        contact: "",
+        address: "",
       });
-
-      // 🔹 Notify parent to refresh table
-      if (onCategoryAdded) onCategoryAdded();
+      if (onSuccess) onSuccess();
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to add category");
+      console.error(error);
+      toast.error("Failed to add supplier");
     } finally {
       setLoading(false);
     }
@@ -48,25 +42,25 @@ export default function AddCategory({ onCategoryAdded }) {
     <div>
       <div>
         <p className="text-xs font-semibold tracking-widest uppercase text-amber-600 mb-1">
-          Content Management
+          Inventory Management
         </p>
         <h1 className="text-4xl sm:text-5xl font-extrabold text-stone-900 tracking-tight mb-3">
-          Add Category
+          Add Supplier
         </h1>
         <div className="h-px bg-linear-to-r from-amber-400 via-amber-200 to-transparent mb-8" />
 
         <div className="bg-white border border-stone-200 rounded-2xl shadow-sm px-6 py-7">
           <p className="text-xs font-bold tracking-widest uppercase text-amber-600 mb-6">
-            + New Category
+            + New Supplier
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className={lbl}>Category Name</label>
+              <label className={lbl}>Supplier Name</label>
               <input
                 className={inp}
                 type="text"
-                placeholder="e.g. Electronics, Furniture"
+                placeholder="e.g. ABC Suppliers"
                 value={form.name}
                 onChange={set("name")}
                 required
@@ -74,13 +68,26 @@ export default function AddCategory({ onCategoryAdded }) {
             </div>
 
             <div>
-              <label className={lbl}>Description</label>
+              <label className={lbl}>Contact</label>
               <input
                 className={inp}
                 type="text"
-                placeholder="Short description (optional)"
-                value={form.description}
-                onChange={set("description")}
+                placeholder="Phone or email"
+                value={form.contact}
+                onChange={set("contact")}
+                required
+              />
+            </div>
+
+            <div>
+              <label className={lbl}>Address</label>
+              <input
+                className={inp}
+                type="text"
+                placeholder="Full address"
+                value={form.address}
+                onChange={set("address")}
+                required
               />
             </div>
 
@@ -116,7 +123,7 @@ export default function AddCategory({ onCategoryAdded }) {
                     Adding…
                   </>
                 ) : (
-                  "+ Add Category"
+                  "+ Add Supplier"
                 )}
               </button>
             </div>

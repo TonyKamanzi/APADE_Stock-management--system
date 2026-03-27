@@ -26,16 +26,18 @@ const Chevron = () => (
   </div>
 );
 
-export default function AddItem({onSuccess}) {
+export default function AddItem({ onSuccess }) {
   const [form, setForm] = useState({
     name: "",
     description: "",
     unit: "",
     category: "",
     quantity: "",
+    supplier: "",
   });
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [suppliers, setSupplier] = useState([]);
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -44,6 +46,21 @@ export default function AddItem({onSuccess}) {
       .get("http://localhost:5000/category/get-all-categories")
       .then(({ data }) => setCategories(data))
       .catch(console.error);
+  }, []);
+
+  const fetchSupplier = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/supplier/all-suppliers",
+      );
+      setSupplier(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSupplier();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -58,8 +75,9 @@ export default function AddItem({onSuccess}) {
         unit: "",
         category: "",
         quantity: "",
+        supplier: "",
       });
-      if(onSuccess) onSuccess()
+      if (onSuccess) onSuccess();
     } catch {
       toast.error("Failed to add item");
     } finally {
@@ -148,6 +166,24 @@ export default function AddItem({onSuccess}) {
                   {categories.map((c) => (
                     <option key={c._id} value={c._id}>
                       {c.name}
+                    </option>
+                  ))}
+                </select>
+                <Chevron />
+              </div>
+            </div>
+            <div>
+              <label className={lbl}>Supplier</label>
+              <div className="relative">
+                <select
+                  className={sel}
+                  value={form.supplier}
+                  onChange={set("supplier")}
+                >
+                  <option value="">Select supplier</option>
+                  {suppliers.map((sup) => (
+                    <option key={sup._id} value={sup._id}>
+                      {sup.name}
                     </option>
                   ))}
                 </select>

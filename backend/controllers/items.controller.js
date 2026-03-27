@@ -3,7 +3,7 @@ import Item from "../models/items.js";
 // ✅ CREATE ITEM
 export const createItem = async (req, res) => {
   try {
-    const { name, quantity, unit, description, category } = req.body;
+    const { name, quantity, unit, description, category, supplier } = req.body;
 
     if (!name || !quantity || !unit || !category) {
       return res
@@ -17,6 +17,7 @@ export const createItem = async (req, res) => {
       unit,
       description,
       category,
+      supplier,
     });
 
     res.status(201).json({
@@ -37,6 +38,7 @@ export const createItem = async (req, res) => {
 export const getAllItems = async (req, res) => {
   try {
     const items = await Item.find()
+      .populate("supplier", "name")
       .populate("category", "name") // only return category name
       .sort({ createdAt: -1 }); // latest first
 
@@ -54,10 +56,9 @@ export const getAllItems = async (req, res) => {
 // ✅ GET SINGLE ITEM
 export const getItemById = async (req, res) => {
   try {
-    const item = await Item.findById(req.params.id).populate(
-      "category",
-      "name",
-    );
+    const item = await Item.findById(req.params.id)
+      .populate("category", "name")
+      .populate("supplier", "name");
 
     if (!item) {
       return res.status(404).json({ message: "Item not found" });
@@ -80,7 +81,9 @@ export const updateItem = async (req, res) => {
     const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
-    }).populate("category", "name");
+    })
+      .populate("category", "name")
+      .populate("supplier", "name");
 
     if (!updatedItem) {
       return res.status(404).json({ message: "Item not found" });

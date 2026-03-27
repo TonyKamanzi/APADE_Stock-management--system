@@ -67,13 +67,8 @@ export default function Categories() {
         {/* ── Divider ── */}
         <div className="h-px bg-linear-to-r from-amber-400 via-amber-200 to-transparent mb-8" />
 
-        {/* ── Add Category Card ── */}
-        <div className="bg-white border border-stone-200 rounded-2xl shadow-sm px-6 py-6 mb-10">
-          <p className="text-xs font-bold tracking-widest uppercase text-amber-600 mb-4">
-            + New Category
-          </p>
-          <AddCategory onCategoryAdded={fetchCategories} />
-        </div>
+        {/* ── Add Category Form ── */}
+        <AddCategory onCategoryAdded={fetchCategories} />
 
         {/* ── Error Banner ── */}
         {error && (
@@ -105,7 +100,7 @@ export default function Categories() {
           </div>
         ) : (
           /* ── Grid ── */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
             {categories.map((cat, index) => (
               <div
                 key={cat._id}
@@ -136,7 +131,7 @@ export default function Categories() {
                     className="font-semibold text-blue-500 hover:text-blue-700 transition-colors duration-150 flex"
                   >
                     Edit
-                    <Edit/>
+                    <Edit />
                   </Link>
                   <span className="w-1 h-1 rounded-full bg-stone-300" />
                   <button
@@ -144,7 +139,7 @@ export default function Categories() {
                     className=" font-semibold text-red-400 hover:text-red-600 transition-colors duration-150 flex"
                   >
                     Delete
-                    <Delete/>
+                    <Delete />
                   </button>
                 </div>
               </div>

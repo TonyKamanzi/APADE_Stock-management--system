@@ -19,7 +19,7 @@ export const createSupplier = async (req, res) => {
 
 export const getSupplier = async (req, res) => {
   try {
-    const suppliers = await Supplier.find().populate("Supplier", "name");
+    const suppliers = await Supplier.find();
 
     res.status(200).json(suppliers);
   } catch (error) {
@@ -65,9 +65,9 @@ export const deleteSupplier = async (req, res) => {
   try {
     const supplier = await Supplier.findByIdAndDelete(req.params.id);
     if (!supplier) {
-      res.status(200).json({ message: "Supplier not found to be deleted" });
-      res.status(200).json({message: "Supplier deleted succefully"});
+      return res.status(404).json({ message: "Supplier not found" });
     }
+    res.status(200).json({ message: "Supplier deleted successfully" });
   } catch (error) {
     res
       .status(500)
