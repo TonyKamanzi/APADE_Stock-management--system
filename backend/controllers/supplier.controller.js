@@ -19,7 +19,7 @@ export const createSupplier = async (req, res) => {
 
 export const getSupplier = async (req, res) => {
   try {
-    const suppliers = await Supplier.find();
+    const suppliers = await Supplier.find().populate("Supplier", "name");
 
     res.status(200).json(suppliers);
   } catch (error) {
