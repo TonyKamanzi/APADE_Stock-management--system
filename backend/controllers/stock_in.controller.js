@@ -16,7 +16,7 @@ export const createStockIn = async (req, res) => {
       quantity,
       unitPrice,
       totalPrice,
-      recordedBy: req.session.userId,
+      // recordedBy: req.session.userId, // TODO: Add user authentication
     });
 
     await newStockIn.save();
@@ -31,7 +31,10 @@ export const createStockIn = async (req, res) => {
 
 export const getStockins = async (req, res) => {
   try {
-    const stockins = await StockIn.find();
+    const stockins = await StockIn.find()
+      .populate("item", "name unit")
+      .populate("supplier", "name")
+      .sort({ createdAt: -1 });
     res.status(200).json(stockins);
   } catch (error) {
     res
@@ -77,7 +80,7 @@ export const deleteStockin = async (req, res) => {
     if (!stockin) {
       return res.status(404).json({ message: "Stockin not found" });
     }
-    res.status(200).json({message:"Stockin deleted"});
+    res.status(200).json({ message: "Stockin deleted" });
   } catch (error) {
     res
       .status(500)
